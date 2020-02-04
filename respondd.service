@@ -1,11 +1,17 @@
 [Unit]
 Description=Respondd
+StartLimitInterval=200
+StartLimitBurst=5
 After=network.target
 
 [Service]
-ExecStart=/opt/mesh-announce/respondd.py -d /opt/mesh-announce/providers -i <your-clientbridge-if> -i <your-mesh-vpn-if> -b <your-batman-if> -m <mesh ipv4 address>
+ExecStart=/opt/mesh-announce/respondd.py  -i br-fftr -i fvpn -b bat0  -i br-fftr_01 -i fvpn_01 -b bat01  -i br-fftr_02 -i fvpn_02 -b bat02  -i br-fftr_03 -i fvpn_03 -b bat03  -i br-fftr_04 -i fvpn_04 -b bat04 -i br-fftr_05 -i fvpn_05 -b bat05
 Restart=always
+RestartSec=30
 Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+WorkingDirectory=/opt/mesh-announce
+
 
 [Install]
 WantedBy=multi-user.target
+
